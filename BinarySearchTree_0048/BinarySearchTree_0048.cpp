@@ -6,13 +6,13 @@ class Node
 {
 public: 
     string info;
-    Node* leftchild;
+    Node* leftchild; //node = objek
     Node* rightchild;
 
-    // Constructor for the node class
+    // Constructor for the node class untuk membangun 
     Node(string i, Node* l, Node* r)
     {
-        info = i;
+        info = i; //parameter
         leftchild = l;
         rightchild = r;
     }
@@ -56,8 +56,36 @@ class BinaryTree
 
     void search(string element, Node*& parent, Node*& currentNode)
     {
+        // This Function searches the currentNode of the specified Node as well as the current Node of its per
+        currentNode = ROOT;
+        parent = NULL;
+        while ((currentNode != NULL) && (currentNode->info != element))
+        {
+            parent = currentNode;
+            if (element < currentNode->info)
+                currentNode = currentNode->leftchild;
+            else
+                currentNode = currentNode->rightchild;
+        }
 
     }
+
+    void inorder(Node* ptr)
+    {
+        if (ROOT == NULL)
+        {
+            cout << "Tree is empty" << endl;
+            return;
+        }
+        if (ptr != NULL)
+        {
+            inorder(ptr->leftchild);
+            cout << ptr->info << " ";
+            inorder(ptr->rightchild);
+        }
+    }
+
+
 
 };
 
