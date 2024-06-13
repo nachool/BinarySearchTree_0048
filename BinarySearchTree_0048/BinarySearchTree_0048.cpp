@@ -1,38 +1,40 @@
 #include <iostream>
-#include <string>
+#include <vector>
 using namespace std;
 
-class Node 
+class Node
 {
-public: 
+public:
     string info;
-    Node* leftchild; //node = objek
+    Node* leftchild;
     Node* rightchild;
 
-    // Constructor for the node class untuk membangun 
+    //constructor for the node class
     Node(string i, Node* l, Node* r)
     {
-        info = i; //parameter
+        info = i;
         leftchild = l;
         rightchild = r;
     }
+
 };
 
 class BinaryTree
 {
+public:
     Node* ROOT;
 
     BinaryTree()
     {
-        ROOT = nullptr; // Initializing ROOT to null
+        ROOT = nullptr; //initializing ROOT to null
     }
 
-    void insert(string element) // Insert a node in the binary search tree
+    void insert(string element)  // insert a node in the binary search tree
     {
         Node* newNode = new Node(element, nullptr, nullptr); // Allocate memory for the new node
-        newNode->info = element; //assign value to the data field of the new node 
+        newNode->info = element; // Assign value to the data field  of the new node
         newNode->leftchild = nullptr; // Make the left child of the new node point to the NULL
-        newNode->rightchild = nullptr;  // Make the right child of the new node point to the NULL
+        newNode->rightchild = nullptr; // Make the right child of the new node point to the NULL
 
         Node* parent = nullptr;
         Node* currentNode = nullptr;
@@ -44,14 +46,14 @@ class BinaryTree
             return; // Exit
         }
 
-        if (element < parent->info) // If the value in the data field of the new node is less than that 
+        if (element < parent->info) // If the value in the data field of the new node is less than that of the
         {
             parent->leftchild = newNode; // Make the left child of the parent point to the new node
-        } 
+        }
         else if (element > parent->info) // If the value in the data field of the new node is greater than that of the
         {
             parent->rightchild = newNode; // Make the right child of the parent point to the new node
-        } 
+        }
     }
 
     void search(string element, Node*& parent, Node*& currentNode)
@@ -67,7 +69,6 @@ class BinaryTree
             else
                 currentNode = currentNode->rightchild;
         }
-
     }
 
     void inorder(Node* ptr)
@@ -82,6 +83,21 @@ class BinaryTree
             inorder(ptr->leftchild);
             cout << ptr->info << " ";
             inorder(ptr->rightchild);
+        }
+    }
+
+    void preorder(Node* ptr)
+    {
+        if (ROOT == NULL)
+        {
+            cout << "Tree is empty" << endl;
+            return;
+        }
+        if (ptr != NULL)
+        {
+            cout << ptr->info << " ";
+            preorder(ptr->leftchild);
+            preorder(ptr->rightchild);
         }
     }
 
@@ -101,7 +117,7 @@ class BinaryTree
     }
 };
 
-int main ()
+int main()
 {
     BinaryTree x;
     while (true)
@@ -118,8 +134,37 @@ int main ()
         cin >> ch;
         cout << endl;
 
+        switch (ch)
+        {
+        case '1':
+        {
+            cout << "Enter & word: ";
+            string word;
+            cin >> word;
+            x.insert(word);
+            break;
+        }
+        case '2':
+        {
+            x.inorder(x.ROOT);
+            break;
+        }
+        case '3':
+        {
+            x.preorder(x.ROOT);
+        }
+        case '4':
+        {
+            x.postorder(x.ROOT);
+        }
+        case '5':
+
+            return 0;
+        default:
+        {
+            cout << "Invalid option" << endl;
+            break;
+        }
+        }
+    }
 }
-
-
-
-
